@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+:root {
+  --kd-gold: #f5c756;
+  --kd-teal: #0f6e66;
+  --kd-ink: #06101f;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: var(--kd-ink);
+  color: #e9f2ff;
+  font-family: "Inter", system-ui, sans-serif;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+canvas {
+  display: block;
+}
+
+.font-display {
+  font-family: "Sora", "Rajdhani", "Inter", system-ui, sans-serif;
+}
+.font-hud {
+  font-family: "Rajdhani", "Sora", "Inter", system-ui, sans-serif;
+}
+
+/* Glass panels */
+.glass {
+  position: relative;
+  background: linear-gradient(180deg, rgba(10, 18, 36, 0.82), rgba(6, 12, 26, 0.72));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(245, 199, 86, 0.14), transparent 35%, transparent 65%, rgba(91, 226, 255, 0.1));
+  mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+}
+
+/* Cinematic overlays */
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(3, 8, 18, 0.55) 100%);
+}
+.grain {
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  mix-blend-mode: soft-light;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes boardFlash {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+@keyframes paPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 199, 86, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(245, 199, 86, 0);
+  }
+}
+.anim-in {
+  animation: fadeIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.board-flash {
+  animation: boardFlash 0.9s ease-out forwards;
+}
+.btn-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3.2s linear infinite;
+}
+.pa-live {
+  animation: paPulse 1.6s ease-out infinite;
+}
+
+::selection {
+  background: rgba(245, 199, 86, 0.35);
+}
